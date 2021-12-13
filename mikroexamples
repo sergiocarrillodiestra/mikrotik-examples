@@ -1,0 +1,23 @@
+#iterate all queue simple
+/queue simple 
+:foreach x in=[find where true] do={
+	#counter
+	:local times 0;
+	#create array
+	:local ids [:toarray ""]
+:local targeta [/queue simple get value-name=target $x];
+#:put " We have $[ :len [/queue simple find where target=$targeta] ] repetidos";
+:foreach y in=[find where target=$targeta] do={
+	:set $times ($times + 1);
+	#get las element of array
+	:set ($ids->[:len $ids]) $y
+};
+
+	:if ($times>1) do={
+		/queue simple remove [:pick $ids ([:len $ids]-1)]
+	} 
+};
+
+
+
+:put " We have $[ :len [/ip route find] ] routes";
